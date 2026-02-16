@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Beautiful Story</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Playfair Display',serif;
+background:#f8f6f1;
+color:#2e2e2e;
+overflow-x:hidden;
+scroll-behavior:smooth;
+}
+
+/* Page Loader */
+#loader{
+position:fixed;
+width:100%;
+height:100vh;
+background:#f8f6f1;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+font-size:22px;
+letter-spacing:2px;
+}
+
+/* Section */
+section{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px 20px;
+transition:opacity 1s ease;
+}
+
+/* Glass Button */
+.btn{
+margin-top:30px;
+padding:14px 32px;
+border-radius:40px;
+border:1px solid rgba(0,0,0,0.1);
+background:rgba(255,255,255,0.3);
+backdrop-filter:blur(10px);
+cursor:pointer;
+font-size:16px;
+transition:0.3s;
+}
+
+.btn:hover{
+background:#c6a75e;
+color:white;
+}
+
+/* Moon Glow */
+body::before{
+content:"";
+position:fixed;
+top:-100px;
+right:-100px;
+width:300px;
+height:300px;
+background:radial-gradient(circle,#ffffff70,#ffffff00);
+border-radius:50%;
+z-index:-1;
+}
+
+/* Countdown */
+#countdown{
+font-size:24px;
+margin-top:20px;
+letter-spacing:2px;
+}
+
+/* Fade In */
+.fade{
+opacity:0;
+transform:translateY(20px);
+transition:1.5s;
+}
+
+.fade.show{
+opacity:1;
+transform:translateY(0);
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="loader">Loading Our Story...</div>
+
+<!-- PAGE 1 -->
+<section>
+<h2 id="letter1"></h2>
+<p id="text1" class="fade"></p>
+<a href="#page2"><button class="btn">Start Our Story</button></a>
+</section>
+
+<!-- PAGE 2 -->
+<section id="page2">
+<h2>When It All Began – 20 December</h2>
+<p id="text2" class="fade"></p>
+<a href="#page3"><button class="btn">Continue</button></a>
+</section>
+
+<!-- PAGE 3 -->
+<section id="page3">
+<h2>The Day My Heart Knew – 26 December</h2>
+<p id="text3" class="fade"></p>
+<a href="#proposal"><button class="btn">Final Letter</button></a>
+</section>
+
+<!-- FINAL PAGE -->
+<section id="proposal">
+<h2>A Love Written With Respect</h2>
+<p id="text4" class="fade"></p>
+<button class="btn" onclick="showProposal()">Will You Marry Me?</button>
+<div id="celebration" style="display:none;">
+<h2 style="margin-top:40px;">InshaAllah 💍</h2>
+<div id="countdown"></div>
+</div>
+</section>
+
+<script>
+
+/* Loader */
+window.onload=function(){
+setTimeout(()=>{document.getElementById("loader").style.display="none";},2000);
+};
+
+/* Typewriter Medium Speed */
+function typeWriter(element,text,speed=40){
+let i=0;
+function typing(){
+if(i<text.length){
+element.innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,speed);
+}
+}
+typing();
+}
+
+/* Letters (5–6 lines exact) */
+const letter1="Dear Sadia Madam,\n\nYou are one of the rarest blessings Allah has placed in my life. Your modesty, honesty, and beautiful Islamic character inspire me daily. Even your small imperfections feel graceful because they make you real. Knowing you feels like mercy written especially for me. I deeply respect and admire you more than words can express.";
+
+const letter2="On this day, I sent you my first request after admiring your unique presence. I greeted you with Salam without knowing my life would change. Your sincerity felt rare and pure. Without overthinking, I expressed my intention for Nikah because I saw loyalty and modesty in you. That day quietly marked the beginning of something unforgettable.";
+
+const letter3="When you told your mother about me, my respect for you multiplied instantly. That act showed your halal intentions and pure character. My feelings grew deeper because you chose honesty over secrecy. I realized you are not just special, you are rare. That day my heart sincerely accepted you.";
+
+const letter4="I truly and sincerely love you. My feelings are based on respect, faith, and halal intentions. I want a future built on trust, prayer, and loyalty. I promise to honor and protect you always. If Allah wills, I want to build a peaceful life with you.";
+
+/* Start typing */
+typeWriter(document.getElementById("letter1"),"Dear Sadia Madam,");
+setTimeout(()=>{typeWriter(document.getElementById("text1"),letter1);},1500);
+setTimeout(()=>{typeWriter(document.getElementById("text2"),letter2);},3000);
+setTimeout(()=>{typeWriter(document.getElementById("text3"),letter3);},5000);
+setTimeout(()=>{typeWriter(document.getElementById("text4"),letter4);},7000);
+
+/* Scroll reveal */
+const faders=document.querySelectorAll('.fade');
+window.addEventListener('scroll',()=>{
+faders.forEach(el=>{
+const rect=el.getBoundingClientRect();
+if(rect.top<window.innerHeight-100){
+el.classList.add('show');
+}
+});
+});
+
+/* Proposal Click */
+function showProposal(){
+document.getElementById("celebration").style.display="block";
+startCountdown();
+}
+
+/* Countdown to Sept 2032 */
+function startCountdown(){
+const target=new Date("September 1, 2032 00:00:00").getTime();
+setInterval(()=>{
+const now=new Date().getTime();
+const diff=target-now;
+const days=Math.floor(diff/(1000*60*60*24));
+document.getElementById("countdown").innerHTML=
+days+" Days Remaining Until Our Future InshaAllah";
+},1000);
+}
+
+</script>
+
+</body>
+</html>
